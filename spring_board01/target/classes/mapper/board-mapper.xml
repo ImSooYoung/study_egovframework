@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exam.spring_board01.mapper.BoardMapper">
+
+	<insert id="insert">
+		insert into board_table (title, content, create_time, modified_time, member_no) 
+		values (#{title}, #{content}, now(), now(), #{memberNo});
+	</insert>
+
+	<select id="selectAll" resultType="com.exam.spring_board01.dto.BoardSelectDTO">
+		select b.*, m.name 
+			from board_table b, member_table m
+		where m.no = b.member_no;
+	</select>
+	
+	<select id="selectByNo" resultType="com.exam.spring_board01.dto.BoardSelectDTO">
+		select b.*, m.name 
+			from board_table b, member_table m 
+		where b.no = #{no} AND b.member_no = m.no;
+	</select>
+	
+	<update id="update">
+		update board_table set title = #{title}, content = #{content}, modified_time = now() where no = #{no}
+	</update>
+	
+</mapper>
