@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.exam.spring_board01.dto.BoardSearchDTO;
 import com.exam.spring_board01.dto.BoardSelectDTO;
 import com.exam.spring_board01.dto.BoardUpdateDTO;
 import com.exam.spring_board01.dto.BoardWriteDTO;
@@ -89,6 +90,37 @@ public class BoardService {
 		log.info("result = {}", result);
 		
 		return result;
+	}
+
+	/**
+	 * 글 삭제한다.
+	 * @param no 삭제할 글 번호
+	 * @return 성공시 1 반환.
+	 */
+	public int delete(int no) {
+		log.info("delete(no = {})", no);
+		
+		int result = boardMapper.delete(no);
+		log.info("result = {}", result);
+		
+		return result;
+	}
+
+	/**
+	 * 검색한다.
+	 * @param dto
+	 * @return List<BoardSelectDTO>
+	 */	
+	public List<BoardSelectDTO> search(BoardSearchDTO dto) {
+		log.info("search(dto = {})", dto);
+		
+//		dto.setKeyword("'%" + dto.getKeyword() + "%'");
+//		log.info("dto = {}", dto);
+		
+		List<BoardSelectDTO> list = boardMapper.search(dto);
+		log.info("list = {}", list);
+		
+		return list;
 	}
 	
 	

@@ -12,7 +12,7 @@
 	
 	<!-- Application Loggers -->
 	<logger name="com.exam.spring_board01">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->

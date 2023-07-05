@@ -32,9 +32,16 @@
 				<label class="content">내용</label>
 				<input type="text" id="content" class="form-control" name="content" value="${result.content }" readonly />
 			</div>
-			<input type="hidden" name="memberNo" value="${result.no }"/>
-			<a href="/board/boardModified?no=${result.no }" class="btn btn-outline-success" >수정</a>
-			<a href="/board/boardDeleten?no=${result.no }" class="btn btn-outline-success">삭제</a>
+			<input type="hidden" name="memberNo" value="${member_no }"/>
+			
+			<c:set var="member_no" value="${member_no }"/>
+			<c:set var="board_member_no" value="${result.member_no }" />
+			
+			<c:if test="${ member_no == board_member_no }">
+				<a href="/board/boardModified?no=${result.no }" class="btn btn-outline-success" >수정</a>
+				<a href="/board/boardDelete?no=${result.no }&member_no=${member_no}" class="btn btn-outline-success">삭제</a>
+			</c:if>
+				
 		</div>
 	</main>
 	

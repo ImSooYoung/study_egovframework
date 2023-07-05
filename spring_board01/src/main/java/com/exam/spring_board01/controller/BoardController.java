@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.exam.spring_board01.dto.BoardSearchDTO;
 import com.exam.spring_board01.dto.BoardSelectDTO;
 import com.exam.spring_board01.dto.BoardUpdateDTO;
 import com.exam.spring_board01.dto.BoardWriteDTO;
@@ -48,7 +49,7 @@ public class BoardController {
 	
 	/**
 	 * 글 작성페이지로 이동한다
-	 * @param no
+	 * @param no 로그인한 사용자의 번호
 	 * @return 
 	 */
 	@GetMapping("/boardWrite")
@@ -77,25 +78,26 @@ public class BoardController {
 	
 	/**
 	 * 디테일 페이지로 이동한다.
-	 * @param no
+	 * @param no 글 번호
+	 * @param member_no 로그인한 사용자의 no
 	 * @return
 	 */
 	@GetMapping("/boardDetail")
-	public String boardDetail(int no, Model model) {
-		log.info("boardDetail(no = {})", no);
+	public String boardDetail(int no, int member_no, Model model) {
+		log.info("boardDetail(no = {}, member_no = {})", no, member_no);
 		
 		BoardSelectDTO result = boardService.selectByBoardNo(no);
 		log.info("result = {}", result);
 		
 		model.addAttribute("result", result);
+		model.addAttribute("member_no", member_no);
 		
 		return "/board/boardDetail";
 	}
 	
 	/**
 	 * 글 수정 페이지로 이동
-	 * @param no
-	 * @param model
+	 * @param no 글 번호
 	 * @return
 	 */
 	@GetMapping("/boardModified")
@@ -123,6 +125,36 @@ public class BoardController {
 		log.info("result = {}", result);
 		
 		return "redirect:/board/boardDetail?no=" + dto.getNo();
+	}
+	
+	/**
+	 * 글 삭제하기
+	 * @param no 삭제할 글 번호
+	 * @param member_no 로그인한 사용자의 no
+	 * @return 
+	 */
+	@GetMapping("/boardDelete")
+	public String boardDelete(int no, int member_no) {
+		log.info("boardDelete(no = {})", no);
+		
+		int result = boardService.delete(no);
+		log.info("result = {}", result);
+		
+		return "redirect:/board/boardList?no=" + member_no;
+	}
+	
+	/**
+	 * 검색 기능
+	 * @param member_no 로그인한 유저의 member_no
+	 * @return
+	 */
+	@GetMapping("/boardSearch")
+	public String boardSearch(int member_no, BoardSearchDTO dto) {
+		log.info("boardSearch(member_no = {}, dto = {})", member_no, dto);
+		
+		List<BoardSelectDTO> list = boardService.search(dto);
+		
+		return "/board/boardList";
 	}
 	
 }

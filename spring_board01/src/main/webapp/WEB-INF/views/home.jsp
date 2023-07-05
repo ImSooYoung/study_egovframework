@@ -9,15 +9,12 @@
 </head>
 <body>
 
-	<h2>hello</h2>
-	<a href="/member/joinWrite">회원가입</a>
-	<a href="/member/">회원목록 조회</a>
-	
 	<form action="/member/login" method="post">
 		<input type="text" name="id" />
 		<input type="text" name="pw" />
 		<input type="submit" value="로그인"></input>
 	</form>
+	<a href="/member/joinWrite">회원가입</a>
 	
 </body>
 </html>

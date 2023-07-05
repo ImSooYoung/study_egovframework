@@ -25,4 +25,19 @@
 		update board_table set title = #{title}, content = #{content}, modified_time = now() where no = #{no}
 	</update>
 	
+	<delete id="delete">
+		delete from board_table where no = #{no}
+	</delete>
+	
+	<select id="search" resultType="com.exam.spring_board01.dto.BoardSelectDTO" parameterType="com.exam.spring_board01.dto.BoardSearchDTO">
+		select b.*, m.name
+			from board_table b, member_table m
+		where m.no = b.member_no
+		<if test="type == 'all'">
+			and b.title like '%'||#{content}||'%' or
+		</if>
+
+		
+	</select>
+	
 </mapper>

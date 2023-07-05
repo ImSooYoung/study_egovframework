@@ -3,8 +3,10 @@ package com.exam.spring_board01.dto;
 import java.time.LocalDateTime;
 
 import lombok.Data;
+import lombok.Getter;
 
 @Data
+@Getter
 public class BoardSelectDTO {
 	private int no;
 	private String title;

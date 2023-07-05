@@ -34,30 +34,55 @@
 		</ul>
 	</nav>
 	
-	<div class="card my-2">
-		<table>
-			<thead>
-				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>작성시간</th>
-					<th>수정시간</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="item" items="${boardVO }">
-				<tr class="tr_row" onclick="location.href='/board/boardDetail?no=${item.no}'">
-					<td>${item.no }</td>
-					<td>${item.title }</td>
-					<td>${item.name }</td>
-					<td>${item.create_time }</td>
-					<td>${item.modified_time }</td>
-				</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-	</div>
+	<main>
+	
+		<div class="bg-light my-2 p-2">
+			<form action="/board/boardSearch" method="get">
+				<div class="row">
+					<div class="col-3">
+						<select class="form-control" name="type">
+							<option value="all">전체</option>
+							<option value="t">제목</option>
+							<option value="a">작성자</option>
+						</select>
+					</div>
+					<div class="col-5">
+						<input class="form-control" type="text" name="keyword" placeholder="검색어" autofocus />
+					</div>
+					<div class="col-2">
+						<input class="form-control btn btn-outline-success" type="submit" value="검색" />
+						<input type="hidden" name="member_no" value="${memberVO.no}" />
+					</div>
+				</div>
+			</form>
+		</div>
+		
+		<div class="card my-2">
+			<table>
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>작성시간</th>
+						<th>수정시간</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="item" items="${boardVO }">
+					<tr class="tr_row" onclick="location.href='/board/boardDetail?no=${item.no}&member_no=${memberVO.no }'">
+						<td>${item.no }</td>
+						<td>${item.title }</td>
+						<td>${item.name }</td>
+						<td>${item.create_time }</td>
+						<td>${item.modified_time }</td>
+					</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+		
+	</main>
 
 </body>
 </html>
